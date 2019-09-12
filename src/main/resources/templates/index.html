@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org/">
+<head th:replace="fragments :: head"> <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="styles.css" /></head>
+<body>
+<h1 th:text="${title}">Default Title</h1>
+<nav th:replace="fragments :: navigation"></nav>
+
+<br/>
+<h2>
+Welcome to cheese-its, home of the cheeses.
+May I take your order?
+</h2>
+Here at cheese its we can make cheese menus to organize cheeses that go together.
+Create useful categories for your cheeses and help yourself to rank and file the
+cheeses you've tasted.
+
+-
+Additional possible functionality would be to make users and have the ability to
+look over people's cheese choices and then catalogue your own.
+</body>
+</html>
