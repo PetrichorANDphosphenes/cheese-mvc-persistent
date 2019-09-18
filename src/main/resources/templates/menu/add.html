@@ -5,9 +5,18 @@
 <h1 th:text="${title}">Default Title</h1>
 
 <nav th:replace="fragments :: navigation"></nav>
+<nav th:replace="fragments :: nav-drop-menu"></nav>
 <!--fill in the menu add form here
 the goal should be to have check boxes for all the cheeses
 step 2 = add a way to segregate between different labels
 for example appetizers and entrees-->
+<form method="post" style="max-width:600px;">
+    <div class="form-group" th:object="${newMenu}">
+        <label th:for="name">Menu name: </label>
+        <input type="text" class="form-control" th:field="*{name}" />
+        <span th:errors="*{name}" class="error"></span>
+    </div>
+    <input type="submit" value="Add Menu"/>
+</form>
 </body>
 </html>

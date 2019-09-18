@@ -8,7 +8,18 @@
 <h1 th:text="${title}">Default Title</h1>
 
 <nav th:replace="fragments :: navigation"></nav>
-
-add new code to this page
+<nav th:replace="fragments :: nav-drop-menu"></nav>
+<p th:unless="${menus} and ${menus.size()}">Please create a menu</p>
+<table class="table">
+    <tr>
+        <th>Menu name</th>
+        <th>Number of items on menu</th>
+    </tr>
+    <tr th:each="menu : ${menus}">
+        <td><a th:href="'/menu/view/' + ${menu.id}"><p th:text="${menu.name}"></p></a></td>
+        <td><a th:href="'/menu/add-item/' + ${menu.id}"><p th:text="${menu.count}"></p><p>add items</p></a></td>
+    </tr>
+</table>
+<a href="/menu/add">create a menu</a>
 </body>
 </html>

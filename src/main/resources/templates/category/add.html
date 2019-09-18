@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org/">
-<head>
-    <meta charset="UTF-8"/>
-    <title>categories</title>
-</head>
+<head th:replace="fragments :: head" />
 <body>
 <nav th:replace="fragments :: navigation"></nav>
-<h1>something new to test</h1>
+<nav th:replace="fragments :: nav-drop-cat"></nav>
+<h1 th:text="${title}"></h1>
 
 <form method="post" style="max-width:600px;">
     <div class="form-group" th:object="${category}">

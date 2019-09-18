@@ -6,7 +6,8 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <link rel="stylesheet" href="styles.css" />
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -25,7 +26,40 @@
     </div>
 </nav>
 
+<div class="container" th:fragment="nav-drop">
 
+    <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="cheese-menu" data-toggle="dropdown">
+            Cheese<span class="caret"></span></button>
+
+        <ul class="dropdown-menu" role="menu" aria-labelledby="cheese-menu">
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="/cheese">Cheeses list</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="/cheese/add">Add a cheese</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="/cheese/remove">Remove a cheese</a> </li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="/cheese/edit">Edit a cheese</a> </li>
+        </ul>
+    </div>
+</div>
+<div class="container" th:fragment="nav-drop-cat">
+    <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="category-menu" data-toggle="dropdown">
+            Category<span class="caret"></span></button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="category-menu">
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="/category">Categories list</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="/category/add">Add a category</a></li>
+        </ul>
+    </div>
+</div>
+<div class="container" th:fragment="nav-drop-menu">
+    <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="menu-menu" data-toggle="dropdown">
+            Menu<span class="caret"></span></button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="cheese-menu">
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="/menu">menu list</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="/menu/add">Create a menu</a></li>
+        </ul>
+    </div>
+</div>
 
 </body>
 </html>

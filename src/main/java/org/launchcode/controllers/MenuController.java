@@ -1,6 +1,9 @@
 package org.launchcode.controllers;
 
+import org.launchcode.models.AddMenuItemForm;
+import org.launchcode.models.Cheese;
 import org.launchcode.models.Menu;
+import org.launchcode.models.data.CheeseDao;
 import org.launchcode.models.data.MenuDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,8 +23,12 @@ public class MenuController {
     @Autowired
     private MenuDao menuDao;
 
+    @Autowired
+    private CheeseDao cheeseDao;
+
     @RequestMapping(value="", method = RequestMethod.GET)
     public String index(Model model) {
+        //this handler should list all the menu names and link to their individual menu pages
         model.addAttribute("title", "menus");
         model.addAttribute("menus", menuDao.findAll());
         return "menu/index";
@@ -30,7 +37,7 @@ public class MenuController {
     @RequestMapping(value="add", method= RequestMethod.GET)
     public String add(Model model) {
         model.addAttribute("title", "Add a Menu");
-        model.addAttribute(new Menu());
+        model.addAttribute("newMenu", new Menu());
         return "menu/add";
     }
 
@@ -39,17 +46,50 @@ public class MenuController {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Menu");
-            return "add";
+            return "menu/add";
         }
         menuDao.save(newMenu);
-        return "redirect:view/" + newMenu.getId();
+
+        return "redirect:add-item/" + newMenu.getId();
     }
 
+    @RequestMapping(value="view/{menuId}", method=RequestMethod.GET)
+    public String viewMenu(Model model, @PathVariable int menuId) {
+        Menu current = menuDao.findOne(menuId);
+        AddMenuItemForm form = new AddMenuItemForm(
+                cheeseDao.findAll(), current);
 
-    @RequestMapping(value="view", method=RequestMethod.GET)
-    public String viewMenu(Model model, @PathVariable int menuTag) {
-        model.addAttribute("title", "Menu View");
+        model.addAttribute("menu", current);
+        model.addAttribute("title", current.getName());
+        model.addAttribute("menuId", current.getId());
+        model.addAttribute("cheeses", current.getCheeses());
 
-        return "view";
+        return "menu/view";
     }
+
+    @RequestMapping(value="add-item/{menuId}", method=RequestMethod.GET)
+    public String addItemView(Model model, @PathVariable int menuId) {
+        Menu current = menuDao.findOne(menuId);
+        AddMenuItemForm form = new AddMenuItemForm(
+                cheeseDao.findAll(), current);
+        model.addAttribute("title", "Add items to this menu - " + current.getName());
+        model.addAttribute("form", form);
+        //consider redirecting to ... instead
+        return "menu/add-item";
+    }
+
+    @RequestMapping(value="add-item", method=RequestMethod.POST)
+    public String addItemProcess(Model model, @ModelAttribute @Valid AddMenuItemForm form, Errors errors) {
+        if (errors.hasErrors()) {
+            model.addAttribute("form", form);
+            return "menu/add-item";
+        }
+        Cheese bCheese = cheeseDao.findOne(form.getCheeseId());
+        Menu bMenu = menuDao.findOne(form.getMenuId());
+        bMenu.addItem(bCheese);
+        menuDao.save(bMenu);
+
+        return "redirect:view/" + form.getMenuId();
+    }
+
 }

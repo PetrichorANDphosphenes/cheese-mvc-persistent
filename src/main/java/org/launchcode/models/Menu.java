@@ -16,8 +16,10 @@ public class Menu {
     private int id;
 
     @NotNull
-    @Size(min = 1, max = 15)
+    @Size(min = 1, max = 30)
     private String name;
+
+    private int count;
 
     @ManyToMany
     private List<Cheese> cheeses;
@@ -35,5 +37,9 @@ public class Menu {
 
     public List<Cheese> getCheeses() {return cheeses;}
 
+    public int getCount() {
+        this.count=this.cheeses.size();
+        return count;
+    }
 
 }
