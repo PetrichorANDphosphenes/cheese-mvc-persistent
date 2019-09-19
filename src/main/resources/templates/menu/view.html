@@ -17,6 +17,6 @@ For menu # <h2 th:text="${menuId}"></h2>:<h2 th:text="${title}"></h2>
     <li th:text="${cheese.description}"></li>
 </ul>
 
-<p><a href="/menu/add-item + ${menu.id}">Add to this menu</a></p>
+<p><a th:href="'/menu/add-item/' + ${menu.id}">Add to this menu</a></p>
 </body>
 </html>
